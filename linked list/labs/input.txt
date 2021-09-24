@@ -1,7 +1,6 @@
-+14
-+20
--20
--14
-+40
-+33
-+45
++1 I am a pupil.
++2 He is a pupil.
++3 She is a pupil.
++4 Make your profit.
+*2 Bob went home.
++3 This is a pupil.
