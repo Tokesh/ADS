@@ -86,14 +86,14 @@ int main(){
         cin >> k;
         qq.insert(k);
     }
-    /* int x;
+    int x;
     cin >> x;
     for(int i=0;i<x;i++){
         int a,b;
         cin >> a >> b;
         qq.incrKey(a-1, b);
 
-    } */
+    }
     qq.print();
     return 0;
 }

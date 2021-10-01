@@ -1,4 +1,3 @@
-#include <iostream>
 #include <vector>
 
 using namespace std;
@@ -73,34 +72,31 @@ struct MinHeap {
             cout << a[i];
             if(i != a.size()-1) cout << ' ';
         }
+        cout << endl;
     }
 
 };
 
-int main() {
-    
-    int n, x;
-    cin >> n;
-    MinHeap heap;
-    for (int i = 0; i < n; i++) {
-        cin >> x;
-        if(heap.a.size() < 2){
-            heap.insert(x);
-            cout << -1 << endl;
-        }
-        else if(heap.a.size()==2){
-            heap.insert(x);
-            cout << heap.a[0] * heap.a[1] * heap.a[2] << endl;
-        }
-        else{
-            heap.insert(x);
-            heap.extractMin();
-            cout << heap.a[0] * heap.a[1] * heap.a[2] << endl;
+class KthLargest {
+public:
+    int j;
+    MinHeap qq;
+    KthLargest(int k, vector<int>& nums) {
+        j = k;
+        for(int i=0;i<nums.size();i++){
+            qq.insert(nums[i]);
+            if(qq.a.size()>j) qq.extractMin();
         }
     }
+    int add(int val) {
+        qq.insert(val);
+        if(qq.a.size()>j) qq.extractMin();
+        return qq.getMin();
+    }
+};
 
-    /* for (int i = 0; i < n; i++) { // O(n * logn)
-        heap->extractMin();
-    } */
-    return 0;
-}
+/**
+ * Your KthLargest object will be instantiated and called as such:
+ * KthLargest* obj = new KthLargest(k, nums);
+ * int param_1 = obj->add(val);
+ */

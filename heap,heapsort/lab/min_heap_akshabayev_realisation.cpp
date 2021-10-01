@@ -3,7 +3,8 @@
 
 using namespace std;
 
-struct MinHeap {
+class MinHeap {
+    public:
     vector<int> a;
 
     int parent(int i) {
@@ -40,8 +41,6 @@ struct MinHeap {
             return;
         
         int j = left(i);
-
-        
         if (right(i) < a.size() && a[left(i)] > a[right(i)])
             j = right(i);
         if (a[i] > a[j]) {
@@ -68,39 +67,20 @@ struct MinHeap {
         a[i] = new_value;
         siftUp(i);
     }
-    void print_m(){
-        for(int i=0;i<a.size();i++){
-            cout << a[i];
-            if(i != a.size()-1) cout << ' ';
-        }
-    }
 
 };
 
 int main() {
-    
     int n, x;
     cin >> n;
-    MinHeap heap;
+    MinHeap *heap = new MinHeap();
     for (int i = 0; i < n; i++) {
         cin >> x;
-        if(heap.a.size() < 2){
-            heap.insert(x);
-            cout << -1 << endl;
-        }
-        else if(heap.a.size()==2){
-            heap.insert(x);
-            cout << heap.a[0] * heap.a[1] * heap.a[2] << endl;
-        }
-        else{
-            heap.insert(x);
-            heap.extractMin();
-            cout << heap.a[0] * heap.a[1] * heap.a[2] << endl;
-        }
+        heap->insert(x);
     }
 
-    /* for (int i = 0; i < n; i++) { // O(n * logn)
-        heap->extractMin();
-    } */
+    for (int i = 0; i < n; i++) { // O(n * logn)
+        cout << heap->extractMin() << " ";        
+    }
     return 0;
 }
