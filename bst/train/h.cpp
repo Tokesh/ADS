@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 using namespace std;
 
 struct node{
@@ -11,7 +12,7 @@ struct node{
         left = NULL;
     }
 };
-
+bool ok = false;
 struct bst{
     node* root;
     bst(){
@@ -51,6 +52,21 @@ struct bst{
         if(root == NULL) return count;
         return max(cnt_height(root->left, count+1), cnt_height(root->right, count+1));
     }
+    node* balance(node* root){
+        if(root == NULL) return NULL;
+        int left_height = cnt_height(balance(root->left),1);
+        int right_height = cnt_height(balance(root->right),1);
+        if(abs(left_height - right_height) >= 2){
+            ok = true;
+        }
+        return root;
+    }
+    bool balance(){
+        ok = false;
+        balance(this->root);
+        if(ok == true) return false;
+        return true;
+    }
 };
 
 int main(){
@@ -61,6 +77,7 @@ int main(){
         tree.insert(x);
         cin >> x;
     }
-    cout << tree.cnt_height(tree.root, 0);
+    if(tree.balance()) cout << "YES";
+    else cout << "NO";
     return 0;
 }
