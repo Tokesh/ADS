@@ -19,17 +19,17 @@ struct bst{
     }
     Nodes* insert(Nodes* node, int val){
         if(node == NULL){
-            Nodes* nodez = new Nodes(val);
-            return nodez;
+            return new Nodes(val);
         }
         if(node->val <= val) node->right = insert(node->right, val);
         if(node->val > val) node->left = insert(node->left, val);
         return node;
     }
-    Nodes* search(Nodes* node, int val){
-        if(node == NULL || node->val == val) return node;
-        if(node->val > val) search(node->right, val);
-        else search(node->left, val);
+    Nodes* search(Nodes* node, int xc){
+        if(node == NULL || node->val == xc) return node;
+        cout << node->val << ' ' ;
+        if(node->val < xc) search(node->right, xc);
+        else search(node->left, xc);
     }
     Nodes* findMin(Nodes* node){
         while(node->left != NULL) node = node->left;
@@ -47,8 +47,8 @@ struct bst{
     }
     Nodes* deleteNode(Nodes* node, int val){
         if(node == NULL) return node;
-        if(node->val > val) deleteNode(node->left, val);
-        else if(node->val < val) deleteNode(node->right, val);
+        if(node->val > val) node->left = deleteNode(node->left, val);
+        else if(node->val < val) node->right = deleteNode(node->right, val);
         else{
             if(node->left == NULL && node->right == NULL) return NULL;
             else if(node->left == NULL) node = node->right;
@@ -75,13 +75,6 @@ struct bst{
         right_sum = sumi(node->right);
         return node->val + left_sum + right_sum;
     }
-
-    int second_min(Nodes* node){
-        if(node == NULL) return 0;
-        int left_m = second_min(node->left);
-        int right_m = second_min(node->right);
-        return max(max(left_m,right_m), node->val);
-    }
 };
 
 
@@ -94,7 +87,7 @@ int main(){
     zz.root = zz.insert(zz.root, 15);
     zz.root = zz.insert(zz.root, 10);
     zz.root = zz.insert(zz.root, 4);
+    zz.deleteNode(zz.root, 5);
     zz.inOrder(zz.root);
-    cout << endl<<zz.second_min(zz.root);
     return 0;
 }
