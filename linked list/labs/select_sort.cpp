@@ -7,7 +7,6 @@ struct Nodes{
     Nodes *next;
     int cnt;
     Nodes(string d){
-        this->cnt = 1;
         this->data = d;
         this->next = NULL;
     }
