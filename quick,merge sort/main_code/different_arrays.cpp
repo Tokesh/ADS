@@ -38,12 +38,12 @@ int main(){
     int temp2[100000], j2 = 0;
 
     for(int i=0;i<n;i++){
-        if(arr1[i] != arr1[i-1]){
+        if(j1 == 0 || arr1[i] != temp1[j1-1]){
             temp1[j1++] = arr1[i];
         }
     }
     for(int i=0;i<k;i++){
-        if(arr2[i] != arr2[i-1]){
+        if(j2 == 0 || arr2[i] != temp2[j2-1]){
             temp2[j2++] = arr2[i];
         }
     }
