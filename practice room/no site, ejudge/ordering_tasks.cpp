@@ -1,43 +1,46 @@
 //10305 - Ordering Tasks
 #include <iostream>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
 int n,m;
-int arr[500][500];
-bool a[500];
-int k=0;
-int queue[500];
+vector<vector<int>>g(150);
+bool used[150];
+vector<int>res;
 
 void dfs(int v){
-    if(a[v] == 1) return;
-    for(int i=0;i<n;i++){
-        if(arr[v][i] == 1){
-            dfs(i);
-        }
+    if(used[v] == true) return;
+    used[v] = true;
+    for(int i=0;i<g[v].size();i++){
+        int to = g[v][i];
+        if(used[to] == false) dfs(to);
     }
-    a[v] = 1;
-    queue[k++] = v;
+    res.push_back(v);
 }
 
 int main(){
-    
-    cin >> n >> m;
-    while(m--){
-        int a,b;
-        cin >> a >> b;
-        if(a != 0 && b != 0){
-            a--;
-            b--;
-            if(arr[b][a] != 1) arr[a][b] = 1;
-        }else{
-            break;
+    while(cin >> n >> m && n!=0){
+        res.clear();
+        g.clear();
+        for(int i=0;i<150;i++){
+            used[i] = false;
         }
-    }
-    for(int i=0;i<n;i++){
-        dfs(i);
-    }
-    for(int i=0;i<k;i++){
-        cout << queue[i] + 1 << ' ';
+        for(int i=0;i<m;i++){
+            int x,y;
+            cin >> x >> y;
+            x--;
+            y--;
+            g[x].push_back(y);
+        }
+        for(int i=0;i<n;i++){
+        if(used[i] != true) dfs(i);
+        }
+        reverse(res.begin(),res.end());
+        for(int i=0;i<res.size();i++){
+            cout << res[i] + 1 << ' ';
+        }
+        cout << endl;
     }
     return 0;
 }
